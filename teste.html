@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+
+    <style>
+        h3
+        {
+            color: white;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: rgb(0,0,0);
+            background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(22,22,99,1) 92%, rgba(22,22,99,1) 93%);
+            text-align: center;
+            padding: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 300px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #messages p, #nomes p {
+            font-weight: bolder;
+            margin: 5px 0;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .container 
+        {
+            margin-top: 20rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .Subcontainer
+        {
+            background-color: #00ffdd;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 30%;
+        }
+
+        nav
+        {
+            padding: 10px;
+        }
+
+        #nomes
+        {
+            margin-top: 2rem;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <img id="K" src="Photos/icons8-letter-k-100.png" alt="">
+        <ul>
+    
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="Line.html">TimeLine</a></li>
+            <li><a href="Life.html">TimeLife</a></li>
+            <li><a href="Photos.html">Photos</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="Subcontainer">
+            <label for="nome">Nome:</label>
+            <input maxlength="13" type="text" id="nome" placeholder="Digite o seu nome">
+            <br>
+
+            <label for="message">Mensagem:</label>
+            <input maxlength="30" type="text" id="message" placeholder="Deixe sua mensagem">
+            
+            <button onclick="sendData()">Enviar</button>
+        </div>
+
+        <div id="nomes">
+    
+        </div>
+        <div id="messages">
+ 
+        </div>
+    </div>
+    
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+    
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5oJM0XVqejdjpzMjy0qXiZhd7ABZ9IQ8",
+            authDomain: "batata-9c296.firebaseapp.com",
+            databaseURL: "https://batata-9c296-default-rtdb.firebaseio.com",
+            projectId: "batata-9c296",
+            storageBucket: "batata-9c296.firebasestorage.app",
+            messagingSenderId: "836799433576",
+            appId: "1:836799433576:web:41f837c53a27c4000b64dd"
+        };
+    
+        // Inicializar o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Função para enviar dados
+        window.sendData = () => {
+            const nome = document.getElementById('nome').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (nome) {
+                const nomesRef = ref(db, 'nomes/');
+                const newNome = push(nomesRef);
+                set(newNome, { text: nome });
+                document.getElementById('nome').value = '';
+            }
+
+            if (message) {
+                const messageRef = ref(db, 'messages/');
+                const newMessage = push(messageRef);
+                set(newMessage, { text: message });
+                document.getElementById('message').value = '';
+            }
+
+            if (!nome && !message) {
+                alert('Por favor, preencha pelo menos um dos campos!');
+            }
+        };
+
+        // Atualizar os nomes em tempo real
+        const nomesRef = ref(db, 'nomes/');
+        onValue(nomesRef, (snapshot) => {
+            const data = snapshot.val();
+            const nomesDiv = document.getElementById('nomes');
+            nomesDiv.innerHTML = '<h3>Nomes:</h3>';
+            if (data) {
+                for (let key in data) {
+                    nomesDiv.innerHTML += `<p>${data[key].text}</p>`;
+                }
+            }
+        });
+
+        // Atualizar as mensagens em tempo real
+        const messagesRef = ref(db, 'messages/');
+        onValue(messagesRef, (snapshot) => {
+            const data = snapshot.val();
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML = '<h3>Mensagens:</h3>';
+            if (data) {
+                for (let key in data) {
+                    messagesDiv.innerHTML += `<p>${data[key].text}</p>`;
+                }
+            }
+        });
+
+    </script>   
+</body>
+</html>
