@@ -1,0 +1,65 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+nav 
+{
+    padding: 20px;
+    display: flex;  
+    justify-content: center; 
+    align-items: center;   
+}
+
+li
+{
+    font-size: 2rem;
+}
+
+li a 
+{
+
+    color: rgb(0, 255, 128);
+    text-decoration: none;
+    transition: 4s;
+}
+
+li a:hover
+{
+    background-color: rgba(0, 255, 255, 0.315);
+    color: rgb(0, 255, 128);
+    text-decoration: none;
+}
+
+li 
+{
+    display: inline; 
+    margin: 0 15px;  
+}
+
+header
+{
+    width: 100%; 
+    background-color: #00ffaa33;
+    position: absolute;
+}
+
+
+footer
+{
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    background-color: azure;
+    width: 100%;
+    font-size: 1.7rem;
+}
+
+
+
+footer a
+{
+    text-decoration: none;
+    color: rgb(0, 47, 255);
+}
