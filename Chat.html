@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-   <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
-
     <style>
-        h3
-        {
-            color: white;
+        h3 {
+            color: rgb(0, 0, 0);
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         body {
             font-family: Arial, sans-serif;
-            background: rgb(0,0,0);
-            background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(22,22,99,1) 92%, rgba(22,22,99,1) 93%);
+            background-color: #060126;
             text-align: center;
             padding: 20px;
         }
@@ -55,40 +54,73 @@
             text-align: left;
         }
 
-        .container 
-        {
+        .container {
             margin-top: 20rem;
             max-width: 500px;
             margin: 0 auto;
         }
 
-        .Subcontainer
-        {
-            background-color: #00ffdd;
+        .Subcontainer {
+            background-color: #ffffffde;
             padding: 20px;
             border-radius: 20px;
             margin-top: 30%;
         }
 
-        nav
-        {
+        nav {
             padding: 10px;
         }
 
-        #nomes
-        {
-            margin-top: 2rem;
+        nav ul {
+            list-style: none;
+            padding: 0;
         }
 
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        #mensagemJanela {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mensagemJanela .janela-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        #mensagemJanela button {
+            background-color: red;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <nav>
         <img id="K" src="Photos/icons8-letter-k-100.png" alt="">
         <ul>
-    
             <li><a href="Home.html">Home</a></li>
-            <li><a href="Line.html">TimeLine</a></li>
+            <li><a href="Chat.html">Messages</a></li>
             <li><a href="Life.html">TimeLife</a></li>
             <li><a href="Photos.html">Photos</a></li>
         </ul>
@@ -101,25 +133,37 @@
             <br>
 
             <label for="message">Mensagem:</label>
-            <input maxlength="30" type="text" id="message" placeholder="Deixe sua mensagem">
+            <input maxlength="40" type="text" id="message" placeholder="Deixe sua mensagem">
             
             <button onclick="sendData()">Enviar</button>
-        </div>
-
-        <div id="nomes">
-    
-        </div>
-        <div id="messages">
- 
+            <button onclick="visualizar()">Mensagens</button>
         </div>
     </div>
-    
-    <script type="module">
 
+    <div id="mensagemJanela">
+        <div class="janela-content">
+            <button onclick="fecharJanela()">Fechar</button>
+            <div id="nomes">
+                <h3>Nomes:</h3>
+            </div>
+            <div id="messages">
+                <h3>Mensagens:</h3>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer>
+        <p>Made by <a target="_blank" href="https://github.com/DiegoNoxe">Diego Nascimento</a></p>
+    </footer>
+
+
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
     
-        const firebaseConfig = {
+        const firebaseConfig = 
+        {
             apiKey: "AIzaSyB5oJM0XVqejdjpzMjy0qXiZhd7ABZ9IQ8",
             authDomain: "batata-9c296.firebaseapp.com",
             databaseURL: "https://batata-9c296-default-rtdb.firebaseio.com",
@@ -128,13 +172,12 @@
             messagingSenderId: "836799433576",
             appId: "1:836799433576:web:41f837c53a27c4000b64dd"
         };
-    
-        // Inicializar o Firebase
+
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Função para enviar dados
-        window.sendData = () => {
+        window.sendData = () => 
+        {
             const nome = document.getElementById('nome').value.trim();
             const message = document.getElementById('message').value.trim();
 
@@ -157,7 +200,8 @@
             }
         };
 
-        // Atualizar os nomes em tempo real
+
+
         const nomesRef = ref(db, 'nomes/');
         onValue(nomesRef, (snapshot) => {
             const data = snapshot.val();
@@ -170,7 +214,8 @@
             }
         });
 
-        // Atualizar as mensagens em tempo real
+
+
         const messagesRef = ref(db, 'messages/');
         onValue(messagesRef, (snapshot) => {
             const data = snapshot.val();
@@ -182,6 +227,18 @@
                 }
             }
         });
+
+
+        window.visualizar = () => {
+            const janela = document.getElementById('mensagemJanela');
+            janela.style.display = 'flex';
+        };
+
+        window.fecharJanela = () => {
+            const janela = document.getElementById('mensagemJanela');
+            janela.style.display = 'none';
+        };
+
 
     </script>   
 </body>
