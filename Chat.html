@@ -8,6 +8,18 @@
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
     <style>
+
+       label
+        {
+            font-size: 1.5rem;
+            font-weight: bolder;
+        }
+
+        footer
+        {
+            left: 0;
+        }
+
         h3 {
             color: rgb(0, 0, 0);
             margin-top: 10px;
@@ -56,7 +68,7 @@
 
         .container {
             margin-top: 20rem;
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
@@ -71,33 +83,23 @@
             padding: 10px;
         }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 10px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-
+       
         #mensagemJanela {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.925);
             z-index: 999;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        .janela-content
+        {
+            margin-bottom: 75px;
         }
 
         #mensagemJanela .janela-content {
@@ -113,6 +115,7 @@
             background-color: red;
             margin-bottom: 10px;
         }
+
     </style>
 </head>
 <body>
@@ -140,18 +143,12 @@
         </div>
     </div>
 
-    <div id="mensagemJanela">
-        <div class="janela-content">
-            <button onclick="fecharJanela()">Fechar</button>
-            <div id="nomes">
-                <h3>Nomes:</h3>
-            </div>
-            <div id="messages">
-                <h3>Mensagens:</h3>
-            </div>
-        </div>
+        <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="Photos/niver.mp4" type="video/mp4">
+            Seu navegador não suporta a tag de vídeo.
+        </video>
     </div>
-
     
     <footer>
         <p>Made by <a target="_blank" href="https://github.com/DiegoNoxe">Diego Nascimento</a></p>
