@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>January</title>
+    <link rel="stylesheet" href="Style/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+</head>
+    <style>
+        .highlight
+        {
+            font-weight: bolder;
+            color: rgb(0, 110, 255);
+        }
+        body
+        {
+            background-color: #060126;
+        }
+        #typed-output 
+        {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            max-width: 80%; 
+            color: rgb(255, 255, 255);
+            font-size: clamp(2rem, 5vw, 7rem);
+            text-align: justify;
+            text-indent: 60px;
+            margin-top: 20px;
+            word-wrap: break-word;
+            word-break: break-word; 
+       }
+
+       .centralizar
+       {
+        background-color: rgba(0, 0, 0, 0.712);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 97vh;
+       }
+    </style>
+
+<body>
+    <header>
+        <nav>
+            <img id="K" src="Photos/icons8-letter-k-100.png" alt="">
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Chat.html">Messages</a></li>
+                <li><a href="Life.html">TimeLife</a></li>
+                <li><a href="Photos.html">Photos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="Photos/niver.mp4" type="video/mp4">
+            Seu navegador não suporta a tag de vídeo.
+        </video>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <div class="centralizar"><span id="typed-output"></span></div>
+    
+
+   <script>
+  const s = [
+
+  "Happy Birthday! May your day be filled with endless joy and unforgettable moments. Cheers to another amazing year!",
+  "Wishing you all the success, love, and happiness in the world on your special day. Happy Birthday!",
+  "¡Feliz cumpleaños! Que este día esté lleno de alegría y momentos inolvidables junto a tus seres queridos.",
+  "¡Que la felicidad y el amor te acompañen hoy y siempre! Disfruta tu día especial al máximo. ¡Feliz cumpleaños!",
+  "Parabéns! Que o seu dia seja cheio de alegria e cercado por pessoas especiais. Você merece tudo de bom!",
+  "Feliz aniversário! Que cada momento do seu dia seja mágico e repleto de amor e felicidade.",
+  "Parabéns pelo seu dia! Que ele seja repleto de conquistas, risos e muita paz. Você merece o melhor!",
+  "Hoje é o seu dia! Que ele seja tão incrível quanto você. Aproveite cada instante. Feliz aniversário!",
+  "Feliz aniversário! Que sua vida seja sempre repleta de saúde, sucesso e grandes realizações. Celebre muito!",
+  "Parabéns! Que este novo ciclo venha cheio de luz, amor e todas as coisas boas que você merece.",
+  "Feliz aniversário! Que a alegria de hoje permaneça em sua vida durante todo o ano. Comemore com muita energia!",
+  "Parabéns pelo seu dia! Que ele seja cheio de sorrisos, amor e momentos inesquecíveis ao lado de quem você ama.",
+  "Feliz aniversário! Que o amor e a felicidade estejam presentes em todos os momentos da sua vida.",
+  "Parabéns! Que você tenha um dia lindo, cheio de surpresas boas e muito carinho.",
+  "Feliz aniversário! Que este seja o início de um ano incrível, com muitas realizações e sonhos realizados.",
+  "Parabéns pelo seu dia! Que a vida continue te presenteando com saúde, amor e muito sucesso.",
+  "Feliz aniversário! Hoje é o seu dia. Que ele seja inesquecível e repleto de bênçãos.",
+  "Parabéns! Que você continue iluminando a vida das pessoas ao seu redor. Feliz aniversário!"
+];
+    let min = 0;
+    let max = s.length-1;
+    let i = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    var options = 
+    {
+        strings: [s[i]], 
+        typeSpeed: 50,
+        backSpeed: 80,
+        backDelay: 500,
+        loop: false 
+    };
+
+    var typed = new Typed("#typed-output", options);
+    
+    setTimeout(function() 
+    {
+        document.querySelector(".centralizar").style.display = "none"; 
+    }, 10000);
+</script>
+
+    
+<footer>
+    <p>Made by <a target="_blank" href="https://github.com/DiegoNoxe">Diego Nascimento</a></p>
+</footer>
+</body>
+</html>

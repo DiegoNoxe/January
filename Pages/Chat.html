@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Style/style.css">
+    <link rel="shortcut icon" href="Photos/k.png" type="image/x-icon">
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+    
+    <style>
+        label 
+        {
+            color: #221e22;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.2rem;
+            font-weight: bolder;
+ 
+        }
+
+        footer 
+        {
+            left: 0;
+        }
+
+        h3 
+        {
+            color: rgb(0, 0, 0);
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        body 
+        {
+            background-image: url('Photos/letter.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: #060126;
+            text-align: center;
+            padding: 20px;
+        }
+
+        input 
+        {
+            margin-top: 20px;
+            padding: 10px;
+            width: 300px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #messages p, #nomes p {
+            font-weight: bolder;
+            margin: 5px 0;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .container {
+            margin-top: 20rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .Subcontainer {
+            background-color: #ffffffde;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 30%;
+            margin-left: 9rem;
+            max-width: 20rem;
+        }
+
+   
+
+        #mensagemJanela {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.925);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .janela-content {
+            margin-bottom: 75px;
+        }
+
+        #mensagemJanela .janela-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        #mensagemJanela button {
+            background-color: red;
+            margin-bottom: 10px;
+        }
+
+        nav
+        {
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+ 
+        <nav>
+            <img id="K" src="Photos/icons8-letter-k-100.png" alt="">
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Chat.html">Messages</a></li>
+                <li><a href="Life.html">TimeLife</a></li>
+                <li><a href="Photos.html">Photos</a></li>
+            </ul>
+        </nav>
+
+
+    <div class="container">
+        <div class="Subcontainer">
+            <label for="nome">Nome:</label>
+            <input maxlength="13" type="text" id="nome" placeholder="Digite o seu nome">
+            <br>
+
+            <label for="message">Mensagem:</label>
+            <input maxlength="40" type="text" id="message" placeholder="Deixe sua mensagem">
+
+            <br>
+            
+            <button onclick="sendData()">Enviar</button>
+            <button onclick="visualizar()">Mensagens</button>
+        </div>
+    </div>
+
+    <div id="mensagemJanela">
+        <div class="janela-content">
+            <button onclick="fecharJanela()">Fechar</button>
+            <div id="nomes"><h3>Nomes:</h3></div>
+            <div id="messages"><h3>Mensagens:</h3></div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Made by <a target="_blank" href="https://github.com/DiegoNoxe">Diego Nascimento</a></p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+    
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5oJM0XVqejdjpzMjy0qXiZhd7ABZ9IQ8",
+            authDomain: "batata-9c296.firebaseapp.com",
+            databaseURL: "https://batata-9c296-default-rtdb.firebaseio.com",
+            projectId: "batata-9c296",
+            storageBucket: "batata-9c296.firebasestorage.app",
+            messagingSenderId: "836799433576",
+            appId: "1:836799433576:web:41f837c53a27c4000b64dd"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        window.sendData = () => {
+            const nome = document.getElementById('nome').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (nome) {
+                const nomesRef = ref(db, 'nomes/');
+                const newNome = push(nomesRef);
+                set(newNome, { text: nome });
+                document.getElementById('nome').value = '';
+            }
+
+            if (message) {
+                const messagesRef = ref(db, 'messages/');
+                const newMessage = push(messagesRef);
+                set(newMessage, { text: message });
+                document.getElementById('message').value = '';
+            }
+
+            if (!nome && !message) {
+                alert('Por favor, preencha pelo menos um dos campos!');
+            }
+        };
+
+        const nomesRef = ref(db, 'nomes/');
+        onValue(nomesRef, (snapshot) => {
+            const data = snapshot.val();
+            const nomesDiv = document.getElementById('nomes');
+            nomesDiv.innerHTML = '<h3>Nomes:</h3>';
+            if (data) {
+                for (let key in data) {
+                    nomesDiv.innerHTML += `<p>${data[key].text}</p>`;
+                }
+            }
+        });
+
+        const messagesRef = ref(db, 'messages/');
+        onValue(messagesRef, (snapshot) => {
+            const data = snapshot.val();
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML = '<h3>Mensagens:</h3>';
+            if (data) {
+                for (let key in data) {
+                    messagesDiv.innerHTML += `<p>${data[key].text}</p>`;
+                }
+            }
+        });
+
+        window.visualizar = () => {
+            const janela = document.getElementById('mensagemJanela');
+            janela.style.display = 'flex';
+        };
+
+        window.fecharJanela = () => {
+            const janela = document.getElementById('mensagemJanela');
+            janela.style.display = 'none';
+        };
+    </script>   
+</body>
+</html>
