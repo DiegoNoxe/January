@@ -13,6 +13,7 @@
             font-weight: bolder;
             color: rgb(0, 110, 255);
         }
+
         body
         {
             background-color: #060126;
@@ -37,6 +38,23 @@
         justify-content: center;
         align-items: center;
         height: 97vh;
+       }
+
+       @media (max-width: 450px) {
+        #typed-output 
+        {
+         margin-left: 10%;
+        max-width: 100%; 
+        font-size: 2.1rem;
+        text-align: left;
+        text-indent: 0px;
+        word-spacing: -3px; 
+        letter-spacing: normal; 
+        word-wrap: normal; /* Tenta evitar quebras forçadas */
+        overflow-wrap: normal; /* Tenta evitar quebras forçadas */
+        word-break: normal; /* Mantém o comportamento normal de quebra de linha */
+        white-space: normal; 
+        }
        }
     </style>
 
@@ -66,6 +84,7 @@
     
 
    <script>
+  /*
   const s = [
 
   "Happy Birthday! May your day be filled with endless joy and unforgettable moments. Cheers to another amazing year!",
@@ -87,6 +106,13 @@
   "Feliz aniversário! Hoje é o seu dia. Que ele seja inesquecível e repleto de bênçãos.",
   "Parabéns! Que você continue iluminando a vida das pessoas ao seu redor. Feliz aniversário!"
 ];
+*/
+
+const s = [
+
+  "Testndo responsividae no celular e balbalbal e sei la mais oq s testando e vai testndo e sei la!"
+];
+
     let min = 0;
     let max = s.length-1;
     let i = Math.floor(Math.random() * (max - min + 1)) + min;

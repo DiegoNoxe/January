@@ -9,18 +9,32 @@
 
     <style>
 
+        .menuAltera
+        {
+            display: inline-block;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            line-height: 6rem;
+            background-color: hsla(0, 0%, 0%, 0.76);
+            width: 50vw;
+            height: 80vh;
+
+        }
+
+       #K2
+        {
+            display: none;
+        }
+
         body 
         {
-            /*background-image: url(Photos/LittleGirl.jpg);*/
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        
             background-color: #060126;
         }
  
         .container 
         {
+            
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -56,12 +70,15 @@
             cursor: pointer;
         }
 
+   
         .splide {
-            width: 800px;
+            z-index: -1; 
+            width: 45vw;
             margin: 0 auto;
         }
 
         .splide__slide {
+            
             display: flex;
             align-items: center;
             justify-content: center;
@@ -73,12 +90,75 @@
             object-fit: cover;
             border-radius: 10px;
         }
+    @media(max-width: 1490px){
+        .splide__arrow {
+        display: none;
+    }
+}
+
+@media(max-width: 500px){
+
+   
+
+
+    .splide {
+            width: 100vw;
+            margin: 0 auto;
+            transform: translateY(-20%); 
+        }
+
+    .splide__slide img {
+        
+            width: 70vw;
+            height: 50vh;
+            object-fit: cover;
+            border-radius: 10px;
+            
+        }
+    
+}
+
+
+
+        
+        @media (max-width: 776px) 
+        {
+
+           .imagem #K2
+            {
+                display: block;
+                width: 10vw;
+            }
+            
+            nav ul 
+            {
+                display: none;
+            }
+
+            .imagem
+            {
+                display: inline-block;
+                position: fixed;
+                top: 3px;
+                left: 3px;
+            }
+
+            .imagem #K 
+            {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <img id="K" src="Photos/icons8-letter-k-100.png" alt="">
+            <div class="imagem">
+                <img id="K2" src="Photos/Menu.png" alt="menu">
+                
+                <img id="K" src="Photos/icons8-letter-k-100.png" alt="">
+            </div>
+
             <ul>
         
                 <li><a href="Home.html">Home</a></li>
@@ -88,6 +168,14 @@
             </ul>
         </nav>
     </header>
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="Photos/poppy-hill-our-life-beginnings-and-always-moewalls-com.mp4" type="video/mp4">
+            Seu navegador não suporta a tag de vídeo.
+        </video>
+    </div>
+    
 
 
     <div class="container">
@@ -127,11 +215,23 @@
                 rewind: true,
                 autoplay: true,
                 interval: 3000,
-                pagination: false, 
+                pagination: true, 
                 drag: true,
                 pauseOnHover: true,
-                speed: 6000,
+                speed: 4000,
             }).mount();
+        });
+
+        //////////////////////////////////////
+
+      const menu = document.getElementById('K2');
+      const nav = document.querySelector('nav ul');
+
+
+        menu.addEventListener('click', () => 
+        {
+            nav.classList.add ('menuAltera'); 
+            menu.style.display = 'none';
         });
     </script>
 </body>
